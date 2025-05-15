@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Tatoo>
+     */
+    #[ORM\OneToMany(targetEntity: Tatoo::class, mappedBy: 'User')]
+    private Collection $tatoos;
+
+    /**
+     * @var Collection<int, Illustration>
+     */
+    #[ORM\OneToMany(targetEntity: Illustration::class, mappedBy: 'user')]
+    private Collection $illustrations;
+
+    /**
+     * @var Collection<int, Fiche>
+     */
+    #[ORM\OneToMany(targetEntity: Fiche::class, mappedBy: 'user')]
+    private Collection $fiches;
+
+    public function __construct()
+    {
+        $this->tatoos = new ArrayCollection();
+        $this->illustrations = new ArrayCollection();
+        $this->fiches = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,5 +129,95 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Tatoo>
+     */
+    public function getTatoos(): Collection
+    {
+        return $this->tatoos;
+    }
+
+    public function addTatoo(Tatoo $tatoo): static
+    {
+        if (!$this->tatoos->contains($tatoo)) {
+            $this->tatoos->add($tatoo);
+            $tatoo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTatoo(Tatoo $tatoo): static
+    {
+        if ($this->tatoos->removeElement($tatoo)) {
+            // set the owning side to null (unless already changed)
+            if ($tatoo->getUser() === $this) {
+                $tatoo->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Illustration>
+     */
+    public function getIllustrations(): Collection
+    {
+        return $this->illustrations;
+    }
+
+    public function addIllustration(Illustration $illustration): static
+    {
+        if (!$this->illustrations->contains($illustration)) {
+            $this->illustrations->add($illustration);
+            $illustration->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIllustration(Illustration $illustration): static
+    {
+        if ($this->illustrations->removeElement($illustration)) {
+            // set the owning side to null (unless already changed)
+            if ($illustration->getUser() === $this) {
+                $illustration->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Fiche>
+     */
+    public function getFiches(): Collection
+    {
+        return $this->fiches;
+    }
+
+    public function addFich(Fiche $fich): static
+    {
+        if (!$this->fiches->contains($fich)) {
+            $this->fiches->add($fich);
+            $fich->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFich(Fiche $fich): static
+    {
+        if ($this->fiches->removeElement($fich)) {
+            // set the owning side to null (unless already changed)
+            if ($fich->getUser() === $this) {
+                $fich->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
