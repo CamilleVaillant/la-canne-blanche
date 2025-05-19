@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -51,11 +55,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Fiche::class, mappedBy: 'user')]
     private Collection $fiches;
 
+    #[Vich\UploadableField(mapping:'images', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?DateTimeImmutable $updatedAt = null;
+
+    /**
+     * @var Collection<int, Style>
+     */
+    #[ORM\ManyToMany(targetEntity: Style::class, mappedBy: 'user')]
+    private Collection $styles;
+
     public function __construct()
     {
         $this->tatoos = new ArrayCollection();
         $this->illustrations = new ArrayCollection();
         $this->fiches = new ArrayCollection();
+        $this->styles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,6 +236,62 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($fich->getUser() === $this) {
                 $fich->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection<int, Style>
+     */
+    public function getStyles(): Collection
+    {
+        return $this->styles;
+    }
+
+    public function addStyle(Style $style): static
+    {
+        if (!$this->styles->contains($style)) {
+            $this->styles->add($style);
+            $style->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStyle(Style $style): static
+    {
+        if ($this->styles->removeElement($style)) {
+            $style->removeUser($this);
         }
 
         return $this;
