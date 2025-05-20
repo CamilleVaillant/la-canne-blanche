@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Salon{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="banner">
+            {# <img src="{{ asset('images/local_images/...') }}" alt="photos du salon"> #}
+            {# <img src="{{ asset('images/local_images/...') }}" alt="logo du salon blanc"> #}
+        </div>
+
+        <div class="salon">
+            <div class="left">
+                <h2>le salon</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem iure obcaecati porro perferendis ipsum nulla labore, commodi adipisci exercitationem! Beatae autem possimus obcaecati exercitationem ex, dicta dignissimos dolor tenetur tempora itaque animi dolore, debitis, consectetur sapiente voluptate necessitatibus saepe sit numquam magni repellendus illum! Recusandae, eius a. Suscipit, nam ea!</p>
+            </div>
+            <div class="right">
+                {# <img src="{{ asset('images/local_images/...') }}" alt="photos du salon"> #}
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="over">
+                {# <img src="{{ asset('images/local_images/...') }}" alt=""> #}
+            </div>
+        </div>
+
+        <div class="carousel-container">
+            <div class="carousel">
+                {# <img src="{{ asset('images/img1.jpg') }}" alt="Image 1"> #}
+                {# <img src="{{ asset('images/img2.jpg') }}" alt="Image 2"> #}
+                {# <img src="{{ asset('images/img3.jpg') }}" alt="Image 3"> #}
+            </div>
+        </div>
+
+    </main>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('.carousel');
+            const images = carousel.querySelectorAll('img');
+
+            // Cloner les images pour créer un effet de boucle fluide
+            images.forEach(img => {
+                const clone = img.cloneNode(true);
+                carousel.appendChild(clone);
+            });
+        });
+    </script>
+{% endblock %}
+
+

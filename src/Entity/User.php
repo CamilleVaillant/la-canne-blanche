@@ -8,11 +8,10 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-#[Vich\Uploadable]
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -52,11 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Fiche>
      */
-    #[ORM\OneToMany(targetEntity: Fiche::class, mappedBy: 'user')]
-    private Collection $fiches;
-
-    #[Vich\UploadableField(mapping:'images', fileNameProperty: 'imageName')]
-    private ?File $imageFile = null;
+   
 
     #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
@@ -65,17 +60,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?DateTimeImmutable $updatedAt = null;
 
     /**
-     * @var Collection<int, Style>
+     * @var Collection<int, Type>
      */
-    #[ORM\ManyToMany(targetEntity: Style::class, mappedBy: 'user')]
-    private Collection $styles;
+    #[ORM\ManyToMany(targetEntity: Type::class, mappedBy: 'user')]
+    private Collection $types;
+
+   
+   
 
     public function __construct()
     {
         $this->tatoos = new ArrayCollection();
         $this->illustrations = new ArrayCollection();
-        $this->fiches = new ArrayCollection();
-        $this->styles = new ArrayCollection();
+        $this->types = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -212,88 +210,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Fiche>
+     * @return Collection<int, Type>
      */
-    public function getFiches(): Collection
+    public function getTypes(): Collection
     {
-        return $this->fiches;
+        return $this->types;
     }
 
-    public function addFich(Fiche $fich): static
+    public function addType(Type $type): static
     {
-        if (!$this->fiches->contains($fich)) {
-            $this->fiches->add($fich);
-            $fich->setUser($this);
+        if (!$this->types->contains($type)) {
+            $this->types->add($type);
+            $type->addUser($this);
         }
 
         return $this;
     }
 
-    public function removeFich(Fiche $fich): static
+    public function removeType(Type $type): static
     {
-        if ($this->fiches->removeElement($fich)) {
-            // set the owning side to null (unless already changed)
-            if ($fich->getUser() === $this) {
-                $fich->setUser(null);
-            }
+        if ($this->types->removeElement($type)) {
+            $type->removeUser($this);
         }
 
         return $this;
     }
 
-    public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
+  
 
-        if ($imageFile) {
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
+   
 
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
 
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @return Collection<int, Style>
-     */
-    public function getStyles(): Collection
-    {
-        return $this->styles;
-    }
-
-    public function addStyle(Style $style): static
-    {
-        if (!$this->styles->contains($style)) {
-            $this->styles->add($style);
-            $style->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStyle(Style $style): static
-    {
-        if ($this->styles->removeElement($style)) {
-            $style->removeUser($this);
-        }
-
-        return $this;
-    }
+   
 }

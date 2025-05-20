@@ -2,18 +2,86 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}La Canne Blanche{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        
+        <!-- Web App Meta -->
+        <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+        {# <link rel="manifest" href="{{ asset('site.webmanifest') }}" /> #}
+
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+            {# {{ encore_entry_link_tags('app') }} #}
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {# {{ encore_entry_script_tags('app') }}
+            {% block importmap %}{{ importmap('app') }}{% endblock %} #}
         {% endblock %}
     </head>
     <body>
+
+        <nav>
+             <!-- Menu burger -->
+            <div class="menu-toggle" id="menu-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            {# Menu de navigation #}
+
+            <ul class="nav-list" id="nav-list">
+                {% if not is_granted('ROLE_USER') %}
+                    <li><a class="{% if app.request.attributes.get('_route') == 'app_login' %} active {% endif %}" href="{{ path('app_login')}}">conection</a></li>
+                {% endif %}    
+            
+                <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_home') }}">le salon</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_team') }}">l'équipe</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_home') }}">gallerie</a></li>
+
+                {% if not is_granted('ROLE_ADMIN') %}
+                    <li><a class="{% if app.request.attributes.get('_route') == 'app_login' %} active {% endif %}" href="{{ path('admin')}}">panel admin </a></li>
+                {% endif %} 
+
+            </ul>
+        </nav>
+
         {% block body %}{% endblock %}
+
+        <footer>
+            <ul>
+                <li><h1>la canne blanche</h1></li>
+                <li><a href="">56 Cours de l'Agonne Bordeaux</a></li>
+                <li><a href="">la Cnne Blanche</a></li>
+            </ul>
+            <ul>
+                <li>
+                    <p>Lundi.....fermé</p>
+                </li>
+                <li>
+                    <p>Mardi.....11h/19h</p>
+                </li>
+                <li>
+                    <p>Mercredi....11h/19h</p>
+                </li>
+                <li>
+                    <p>Jeudi.....11h/19h</p>
+                </li>
+                <li>
+                    <p>Vendredi.....11h/19h</p>
+                </li>
+                <li>
+                    <p>Samedi.....11h/19h</p>
+                </li>
+                <li>
+                    <p>Dimanche.....fermé</p>
+                </li>
+            </ul>
+            <ul>
+                <li><p>© 2025 La Canne Blanche. Tous droits réservés.</p></li>
+                <li><a href="#">🔐 Politique de confidentialité</a></li>
+                <li><a href="#">📜 Mentions légales</a></li>
+            </ul>
+        </footer>
     </body>
 </html>
