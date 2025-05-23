@@ -1,0 +1,11 @@
+@use "../abstract/variable" as v;
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    background-color: #000108;
+    background-image: url("https://www.transparenttextures.com/patterns/large-leather.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}

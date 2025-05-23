@@ -1,10 +1,5 @@
-main {
-    background-color: skyblue;
-}
-.salon{
-    background-color: black;
-}
-
-footer{
-    background-color: red;
-}
+@use 'base/general';
+@use 'layout/accueil';
+@use 'layout/team';
+@use 'layout/gallery';
+@use 'layout/form';

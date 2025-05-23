@@ -9,8 +9,18 @@
         <meta name="apple-mobile-web-app-title" content="MyWebSite" />
         {# <link rel="manifest" href="{{ asset('site.webmanifest') }}" /> #}
 
+         <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}" />
+
+        <!-- Web App Meta -->
+        <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+        <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
+
         {% block stylesheets %}
-            {# {{ encore_entry_link_tags('app') }} #}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
@@ -36,11 +46,11 @@
                 {% endif %}    
             
                 <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_home') }}">le salon</a></li>
-                <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_team') }}">l'équipe</a></li>
-                <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_home') }}">gallerie</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'app_team' %} active {% endif %}" href="{{ path('app_team') }}">l'équipe</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'app_gallery' %} active {% endif %}" href="{{ path('app_gallery') }}">gallerie</a></li>
 
                 {% if not is_granted('ROLE_ADMIN') %}
-                    <li><a class="{% if app.request.attributes.get('_route') == 'app_login' %} active {% endif %}" href="{{ path('admin')}}">panel admin </a></li>
+                    <li><a class="{% if app.request.attributes.get('_route') == 'app_admin' %} active {% endif %}" href="{{ path('admin')}}">panel admin </a></li>
                 {% endif %} 
 
             </ul>
@@ -52,7 +62,7 @@
             <ul>
                 <li><h1>la canne blanche</h1></li>
                 <li><a href="">56 Cours de l'Agonne Bordeaux</a></li>
-                <li><a href="">la Cnne Blanche</a></li>
+                <li><a href="">la Canne Blanche</a></li>
             </ul>
             <ul>
                 <li>
