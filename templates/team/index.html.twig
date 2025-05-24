@@ -10,9 +10,9 @@
         {% for tatoueur in tatoueurs %}
             <article id="c-v">
                 <div class="card">
-                    <img src="{{ asset('uploads/images/' ~ user.imageName) }}" alt="Image de {{ user.name }}">
-                    <h2>{{ user.name }}</h2>
-                    <h3>style: {% for type in user.types %}
+                    <img src="{{ asset('uploads/images/' ~ tatoueur.imageName) }}" alt="Image de {{ tatoueur.name }}">
+                    <h2>{{ tatoueur.name }}</h2>
+                    <h3>style: {% for type in tatoueur.types %}
                                     {{ type.name }}{% if not loop.last %}, {% endif %}
                                 {% endfor %}
                     </h3>
