@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+	<main id="register">
+        {{form_start(userForm)}}
+            {{form_widget(userForm)}}
+            <button>ajout</button>
+        {{form_end(userForm)}}
+
+	</main>
+
+{% endblock %}

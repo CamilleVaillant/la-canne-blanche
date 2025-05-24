@@ -5,6 +5,8 @@
 {% block body %}
     <main id="team">
 
+        
+
         {% for tatoueur in tatoueurs %}
             <article id="c-v">
                 <div class="card">
@@ -16,6 +18,7 @@
                     </h3>
                     {# intégration d'un bouton pour afficher la bio #}
                 </div>
-            </article>    
+            </article>
+        {% endfor %}
     </main>
 {% endblock %}
