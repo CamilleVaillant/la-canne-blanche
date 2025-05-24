@@ -47,7 +47,7 @@
                 {% endif %}    
             
                 <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_home') }}">le salon</a></li>
-                <li><a class="{% if app.request.attributes.get('_route') == 'app_team' %} active {% endif %}" href="{{ path('app_team') }}">l'équipe</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'app_team' %} active {% endif %}" href="{{ path('app_team') }}">l'equipe</a></li>
                 <li><a class="{% if app.request.attributes.get('_route') == 'app_gallery' %} active {% endif %}" href="{{ path('app_gallery') }}">gallerie</a></li>
 
                 {% if is_granted('ROLE_ADMIN') %}
@@ -95,5 +95,26 @@
                 <li><a href="#">📜 Mentions légales</a></li>
             </ul>
         </footer>
+
+
+        <script>
+        let lastScrollTop = 0;
+            const nav = document.querySelector('nav');
+
+            window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > lastScrollTop) {
+                // On scroll vers le bas
+                nav.classList.add('nav--hidden');
+            } else {
+                // On scroll vers le haut
+                nav.classList.remove('nav--hidden');
+            }
+
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // pour iOS
+            });
+
+        </script>
     </body>
 </html>

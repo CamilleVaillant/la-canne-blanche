@@ -12,5 +12,34 @@
 #salon{
     background-color: black;
     background-image: url(/public/local_images/black-leather.png);
+    height: 100vh;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #000000;
+    background-image: url(/public/local_images/black-leather.png);
     background-repeat: repeat;
+    padding: 1rem 0;
+    transition: transform 0.3s ease-in-out;
+    
+    &.nav--hidden {
+        transform: translateY(-100%);
+    }
+    ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+        a{
+        font-family: 'roboto';
+        text-transform: uppercase;
+        font-size: 3rem;
+        color: rgb(14, 53, 14);
+        }
+    }
+    
 }
