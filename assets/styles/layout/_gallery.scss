@@ -1,0 +1,23 @@
+@use "../abstract/variable.scss" as v;
+
+#gallery::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image: url(/public/local_images/black-leather.png);
+    z-index: -1;
+    opacity: 0.4;
+}
+#gallery::after{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: -2;
+}

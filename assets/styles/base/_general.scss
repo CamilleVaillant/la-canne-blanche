@@ -5,15 +5,9 @@
     padding: 0;
     list-style: none;
     text-decoration: none;
-    
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
-#salon{
-    // background-color: rgb(12, 12, 12);
-    
-    // height: auto;
-}
+
 
 nav{
     position: fixed;
@@ -43,13 +37,12 @@ nav{
 }
 
 footer{
+    position: relative;
     background-color: #000000;
-    // background-image: url(/public/local_images/black-leather.png);
-    // background-repeat: repeat;
     color: white;
     display: flex;
     justify-content: space-around;
-    padding-top: 5rem;
+    padding-top: 4rem;
     padding-bottom: 3rem;
     li{
         margin-top: 1.5rem;
