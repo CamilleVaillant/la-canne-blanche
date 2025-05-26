@@ -5,8 +5,8 @@
 {% block body %}
     <main id="salon">
         <div class="banner">
-            {# <img src="{{ asset('images/local_images/...') }}" alt="photos du salon"> #}
-            {# <img src="{{ asset('images/local_images/...') }}" alt="logo du salon blanc"> #}
+            {# <img class="banner1" src="{{ asset('local_images/salon-banner.webp') }}" alt="photos du salon"> #}
+            <img class="titre1" src="{{ asset('local_images/accueil-banner.webp') }}" alt="logo du salon blanc">
         </div>
 
         <div class="salon">
@@ -15,23 +15,28 @@
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem iure obcaecati porro perferendis ipsum nulla labore, commodi adipisci exercitationem! Beatae autem possimus obcaecati exercitationem ex, dicta dignissimos dolor tenetur tempora itaque animi dolore, debitis, consectetur sapiente voluptate necessitatibus saepe sit numquam magni repellendus illum! Recusandae, eius a. Suscipit, nam ea!</p>
             </div>
             <div class="right">
-                {# <img src="{{ asset('images/local_images/...') }}" alt="photos du salon"> #}
+                <img src="{{ asset('local_images/gargouille.webp') }}" alt="photos du salon">
             </div>
         </div>
 
-        <div class="slide">
-            <div class="over">
-                {# <img src="{{ asset('images/local_images/...') }}" alt=""> #}
+        <section class="bandeau-fixe"></section>
+
+        <div class="carrousel">
+            <div class="carrousel-track">
+                <img src="{{ asset('local_images/images1.jpg')}}" alt="" />
+                <img src="{{ asset('local_images/images2.png')}}" alt="" />
+                <img src="{{ asset('local_images/images3.jpg')}}" alt="" />
+                <img src="{{ asset('local_images/images4.jpg')}}" alt="" />
+                <img src="{{ asset('local_images/images5.png')}}" alt="" />
+                <img src="{{ asset('local_images/images1.jpg')}}" alt="" />
+                <img src="{{ asset('local_images/images2.png')}}" alt="" />
+                <img src="{{ asset('local_images/images3.jpg')}}" alt="" />
+                <img src="{{ asset('local_images/images4.jpg')}}" alt="" />
+                <img src="{{ asset('local_images/images5.png')}}" alt="" />
+                
             </div>
         </div>
 
-        <div class="carousel-container">
-            <div class="carousel">
-                {# <img src="{{ asset('images/img1.jpg') }}" alt="Image 1"> #}
-                {# <img src="{{ asset('images/img2.jpg') }}" alt="Image 2"> #}
-                {# <img src="{{ asset('images/img3.jpg') }}" alt="Image 3"> #}
-            </div>
-        </div>
 
     </main>
 

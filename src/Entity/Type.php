@@ -21,7 +21,7 @@ class Type
     /**
      * @var Collection<int, user>
      */
-    #[ORM\ManyToMany(targetEntity: user::class, inversedBy: 'types')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'types')]
     private Collection $user;
 
     public function __construct()
@@ -69,4 +69,10 @@ class Type
 
         return $this;
     }
+
+    public function __toString(): string
+{
+    return $this->name ?? 'Type';
+}
+
 }

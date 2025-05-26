@@ -1,0 +1,144 @@
+@use "../abstract/variable.scss" as v;
+
+#salon{
+    position: relative;
+    .banner{
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        
+        // .banner1{
+            // object-fit: cover;
+            // width: 60%;
+            // height: 40vh;
+            // display: block;
+            // margin: 0 auto;
+            padding-top: 100px;
+            
+        // }
+        .titre1{
+            object-fit: cover;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+            
+            
+        }
+    }
+
+    .salon{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 250px;
+        padding: 0 6rem;
+        padding-bottom: 150px;
+        .left{
+            color: white;
+            text-align: center;
+            padding: 100px;
+            h2{
+                font-size: 5rem;
+                padding-bottom: 1.5rem;
+            }
+            p{
+                // line-height: 2;
+                font-size: 1.5rem;
+            }
+        }
+        .right{
+            object-fit: cover;
+            img{
+                height: 600px;
+                border-radius: 10px;
+            }
+        }
+
+    }
+
+    .section {
+        height: 100vh;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+    }
+
+/* Bandeau image fixe */
+    .bandeau-fixe {
+        position: relative;
+        height: 400px; /* hauteur du bandeau */
+        background-image: url(/public/local_images/salon-tableau.webp);
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        &::before{
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .carrousel {
+        background-image: url(/public/local_images/cadre-blanc.png);
+        background-position: center;
+        background-size: cover;
+        overflow: hidden;
+        width: 100%;
+        // background: #000; /* optionnel */
+
+    }
+
+    .carrousel-track {
+        display: flex;
+        width: calc(6 * 300px); /* 6 images de 300px */
+        animation: defilement 20s linear infinite;
+    }
+
+    .carrousel-track img {
+        width: 300px;
+        height: 80%;
+        flex-shrink: 0;
+    }
+
+    @keyframes defilement {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-900px); /* la moitié, car on duplique les images */
+        }
+    }
+
+
+
+}
+
+#salon::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image: url(/public/local_images/black-leather.png);
+    z-index: -1;
+    opacity: 0.4;
+}
+#salon::after{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: -2;
+}
