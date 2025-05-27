@@ -36,10 +36,9 @@
 
                     <div class="actions">
                         {% if is_granted('ROLE_USER') %}
-                            <a href="{{ path('modify_tatoo', {'id': tatoo.id}) }}" class="btn">Modifier</a>
-                        {% endif %}
-
-                        {% if is_granted('ROLE_ADMIN') %}
+                            
+                            <button class="btn open-edit-modal" data-id="{{ tatoo.id }}">Modifier</button>
+                        
                             <form method="POST" onsubmit="return confirm('Confirmer la suppression ?')" action="{{ path('delete_tatoo', {'id': tatoo.id}) }}">
                                 <input type="hidden" name="_method" value="delete">
                                 <input type="hidden" name="_token" value="{{ csrf_token('DEL' ~ tatoo.id) }}">
@@ -58,5 +57,13 @@
     <div id="lightbox" class="hidden">
         <span class="close">&times;</span>
         <img id="lightbox-img" src="" alt="Agrandissement du tatouage">
+    </div>
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-form-container">
+                <!-- Le formulaire de modification sera injecté ici en AJAX -->
+            </div>
+        </div>
     </div>
 {% endblock %}

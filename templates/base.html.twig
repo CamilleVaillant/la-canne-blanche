@@ -147,5 +147,82 @@
 
         </script>
 
+        <script>
+            document.querySelectorAll('.open-edit-modal').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const tatooId = btn.dataset.id;
+                const response = await fetch(`/tatoo/${tatooId}/edit`); // route à adapter
+                const html = await response.text();
+                document.getElementById('modal-form-container').innerHTML = html;
+                document.getElementById('editModal').classList.remove('hidden');
+            });
+            });
+
+            document.querySelector('.modal .close').addEventListener('click', () => {
+            document.getElementById('editModal').classList.add('hidden');
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('editModal');
+            const modalContainer = document.getElementById('modal-form-container');
+            const closeModal = modal.querySelector('.close');
+
+            // Ouvrir la modale et charger le formulaire par AJAX
+            document.querySelectorAll('.open-edit-modal').forEach(button => {
+                button.addEventListener('click', async () => {
+                const tatooId = button.dataset.id;
+                try {
+                    const response = await fetch(`/tatoo/${tatooId}/edit`);
+                    if (!response.ok) throw new Error('Erreur lors du chargement du formulaire');
+                    const html = await response.text();
+                    modalContainer.innerHTML = html;
+                    modal.classList.remove('hidden');
+
+                        // Éventuellement, gérer la soumission AJAX ici, sinon laisse le form normal
+
+                    } catch (error) {
+                        alert(error.message);
+                    }
+                    });
+                });
+
+                // Fermer la modale au clic sur la croix
+                closeModal.addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                    modalContainer.innerHTML = ''; // reset contenu
+                });
+
+            // Fermer la modale au clic à l’extérieur du contenu
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                modal.classList.add('hidden');
+                modalContainer.innerHTML = '';
+                }
+            });
+            });
+            document.querySelectorAll('.open-edit-modal').forEach(button => {
+    button.addEventListener('click', function() {
+        const tatooId = this.dataset.id;
+        fetch(`/tatoo/edit/${tatooId}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modal-form-container').innerHTML = html;
+                document.getElementById('editModal').classList.remove('hidden');
+
+                // Ajoute un écouteur sur la croix pour fermer la modale
+                document.querySelector('#editModal .close').addEventListener('click', () => {
+                    document.getElementById('editModal').classList.add('hidden');
+                    document.getElementById('modal-form-container').innerHTML = '';
+                });
+
+                // Optionnel : gérer la soumission AJAX du formulaire ici
+            });
+    });
+});
+
+        </script>
+
     </body>
 </html>

@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Form\TatooType;
+
 
 final class GalleryController extends AbstractController
 {
@@ -69,6 +71,20 @@ final class GalleryController extends AbstractController
 
         return $this->redirectToRoute('app_gallery');
     }
+
+    #[Route('/tatoo/{id}/edit', name: 'edit_tatoo', methods: ['GET'])]
+    public function edit(Tatoo $tatoo): Response
+    {
+        $form = $this->createForm(TatooType::class, $tatoo, [
+            'action' => $this->generateUrl('app_tatoo_update', ['id' => $tatoo->getId()]),
+            'method' => 'POST',
+        ]);
+
+        return $this->render('gallery/_edit_form.html.twig', [
+            'tatooForm' => $form->createView(),
+        ]);
+    }
+
 
 
 }
