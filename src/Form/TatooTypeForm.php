@@ -2,11 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Tatoo;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Tatoo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TatooTypeForm extends AbstractType
@@ -22,7 +23,13 @@ class TatooTypeForm extends AbstractType
             ])
             ->add('User', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'label' => 'Image du tatouage',
             ])
         ;
     }

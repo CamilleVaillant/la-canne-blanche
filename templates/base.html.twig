@@ -109,6 +109,7 @@
             });
 
         </script>
+
         <script>
             document.querySelectorAll('.toggle-bio-btn').forEach(button => {
                 button.addEventListener('click', () => {
@@ -120,5 +121,31 @@
                 });
             });
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                const closeBtn = document.querySelector('#lightbox .close');
+
+                document.querySelectorAll('#gallery .card img').forEach(img => {
+                    img.addEventListener('click', () => {
+                        lightboxImg.src = img.src;
+                        lightbox.classList.add('active');
+                    });
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                });
+
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('active');
+                    }
+                });
+            });
+
+        </script>
+
     </body>
 </html>

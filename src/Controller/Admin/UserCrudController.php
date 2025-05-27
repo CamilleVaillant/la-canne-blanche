@@ -68,13 +68,24 @@ class UserCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        if ($entityInstance instanceof User && $entityInstance->getPlainPassword()) {
-            $hashedPassword = $this->passwordHasher->hashPassword($entityInstance, $entityInstance->getPlainPassword());
-            $entityInstance->setPassword($hashedPassword);
+        if ($entityInstance instanceof User) {
+            // Attribuer ROLE_USER si aucun rôle n'est défini
+            $roles = $entityInstance->getRoles();
+            if (!in_array('ROLE_USER', $roles, true)) {
+                $roles[] = 'ROLE_USER';
+                $entityInstance->setRoles($roles);
+            }
+
+            // Hasher le mot de passe s’il est défini
+            if ($entityInstance->getPlainPassword()) {
+                $hashedPassword = $this->passwordHasher->hashPassword($entityInstance, $entityInstance->getPlainPassword());
+                $entityInstance->setPassword($hashedPassword);
+            }
         }
 
         parent::persistEntity($entityManager, $entityInstance);
     }
+
 
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
@@ -82,6 +93,7 @@ class UserCrudController extends AbstractCrudController
             $hashedPassword = $this->passwordHasher->hashPassword($entityInstance, $entityInstance->getPlainPassword());
             $entityInstance->setPassword($hashedPassword);
         }
+        
 
         parent::updateEntity($entityManager, $entityInstance);
     }

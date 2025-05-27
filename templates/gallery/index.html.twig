@@ -4,6 +4,59 @@
 
 {% block body %}
     <main id="gallery">
+         {{ form_start(form) }}
+            {{ form_row(form) }}
+            <button type="submit">Filtrer</button>
+        {{ form_end(form) }}
+
+        {% if is_granted('ROLE_USER') %}
+            <div class="add-button">
+                <a href="{{ path('add_tatoo') }}" class="btn add-btn">Ajouter un tatouage</a>
+            </div>
+        {% endif %}
+
+        {% for tatoo in tatoos %}
+            <article id="c-v">
+                <div class="card">
+                    {% if tatoo.imageName %}
+                        <img src="{{ asset('uploads/images/' ~ tatoo.imageName) }}" alt="Tatouage de {{ tatoo.User.name }}">
+                    {% else %}
+                        <img src="{{ asset('images/placeholder.jpg') }}" alt="Image manquante">
+                    {% endif %}
+
+                    <h2>{{ tatoo.tatoo }}</h2>
+
+                    {% if tatoo.User %}
+                        <h3>Réalisé par : {{ tatoo.User.name }}</h3>
+                    {% else %}
+                        <h3>Artiste inconnu</h3>
+                    {% endif %}
+
+                    <p>Date : {{ tatoo.date ? tatoo.date|date('d/m/Y') : 'Non renseignée' }}</p>
+
+                    <div class="actions">
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('modify_tatoo', {'id': tatoo.id}) }}" class="btn">Modifier</a>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <form method="POST" onsubmit="return confirm('Confirmer la suppression ?')" action="{{ path('delete_tatoo', {'id': tatoo.id}) }}">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="_token" value="{{ csrf_token('DEL' ~ tatoo.id) }}">
+                                <button class="btn btn_suppr">Supprimer</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+        {% else %}
+            <p>Aucun tatouage trouvé.</p>
+        {% endfor %}
     
     </main>
+    <!-- Lightbox container  -->
+    <div id="lightbox" class="hidden">
+        <span class="close">&times;</span>
+        <img id="lightbox-img" src="" alt="Agrandissement du tatouage">
+    </div>
 {% endblock %}

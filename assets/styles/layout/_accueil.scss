@@ -56,7 +56,7 @@
 /* Bandeau image fixe */
     .bandeau-fixe {
         position: relative;
-        height: 400px; /* hauteur du bandeau */
+        height: 100vh; /* hauteur du bandeau */
         background-image: url(/public/local_images/salon-tableau.webp);
         background-attachment: fixed;
         background-position: center;
@@ -88,7 +88,7 @@
         width: 100%;
         top: 0;
         left: 0;
-        background-image: url(/public/local_images/cadre-blanc.png);
+        background-image: url(/public/local_images/cadre-or.png);
         background-size: cover;
         background-position: center;
         z-index: 2;

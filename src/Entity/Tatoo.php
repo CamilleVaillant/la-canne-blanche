@@ -99,4 +99,8 @@ class Tatoo
     {
         return $this->imageName;
     }
+     public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
 }
