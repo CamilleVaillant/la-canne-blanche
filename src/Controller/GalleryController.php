@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Tatoo;
-use App\Form\TatooFilterTypeForm;
+use App\Form\TatooType;
 use App\Form\TatooTypeForm;
+use App\Form\TatooFilterTypeForm;
 use App\Repository\TatooRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use App\Form\TatooType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 
 final class GalleryController extends AbstractController
@@ -72,19 +74,14 @@ final class GalleryController extends AbstractController
         return $this->redirectToRoute('app_gallery');
     }
 
-    #[Route('/tatoo/{id}/edit', name: 'edit_tatoo', methods: ['GET'])]
-    public function edit(Tatoo $tatoo): Response
-    {
-        $form = $this->createForm(TatooType::class, $tatoo, [
-            'action' => $this->generateUrl('app_tatoo_update', ['id' => $tatoo->getId()]),
-            'method' => 'POST',
-        ]);
-
-        return $this->render('gallery/_edit_form.html.twig', [
-            'tatooForm' => $form->createView(),
-        ]);
-    }
+    
 
 
 
+    
 }
+
+
+
+
+

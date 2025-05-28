@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ isModification ? 'Modifier un tatouage' : 'Ajouter un tatouage' }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+{% endblock %}
+{% block body %}
+    <main id="form">
+        <h1>{{ isModification ? 'Modifier le tatouage' : 'Ajouter un nouveau tatouage' }}</h1>
+
+        {{ form_start(tatooForm) }}
+            {{ form_widget(tatooForm) }}
+            <button class="btn btn-success">
+                {{ isModification ? 'Mettre à jour' : 'Créer' }}
+            </button>
+        {{ form_end(tatooForm) }}
+
+        <a href="{{ path('app_gallery') }}" class="btn btn-secondary mt-3">Retour à la galerie</a>
+    </main>
+    
+{% endblock %}

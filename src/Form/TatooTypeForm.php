@@ -8,7 +8,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class TatooTypeForm extends AbstractType
 {
@@ -17,10 +19,6 @@ class TatooTypeForm extends AbstractType
         $builder
             ->add('tatoo')
             ->add('date')
-            ->add('imageName')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
             ->add('User', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'name',
@@ -31,6 +29,24 @@ class TatooTypeForm extends AbstractType
                 'download_uri' => false,
                 'label' => 'Image du tatouage',
             ])
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'mapped' => true,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '4M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez upoader une image valide (JPEG, PNG, GIF, WEBP).',
+                    ])
+                ],
+                'label' => 'Image (optionnelle)'
+            ])
+            
         ;
     }
 
