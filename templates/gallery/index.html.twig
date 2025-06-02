@@ -4,50 +4,58 @@
 
 {% block body %}
     <main id="gallery">
-         {{ form_start(form) }}
-            {{ form_row(form) }}
-            <button type="submit">Filtrer</button>
-        {{ form_end(form) }}
+        <div class="g_form">
+            <div id="form">
+                {{ form_start(form) }}
+                    {{ form_row(form.user) }}
+                    {{ form_row(form.order) }}
+                    {{ form_row(form.filter) }}
+                {{ form_end(form) }}
+            </div>
 
-        {% if is_granted('ROLE_USER') %}
-            
-        {% endif %}
 
-        {% for tatoo in tatoos %}
-            <article id="c-v">
-                <div class="card">
-                    {% if tatoo.imageName %}
-                        <img src="{{ asset('uploads/images/' ~ tatoo.imageName) }}" alt="Tatouage de {{ tatoo.User.name }}">
-                    {% else %}
-                        <img src="{{ asset('images/placeholder.jpg') }}" alt="Image manquante">
-                    {% endif %}
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('add_tatoo') }}" class="ajout">Ajouter un tatouage</a>
+            {% endif %}
+        </div>
+        <div class="g_tatoo">
+            {% for tatoo in tatoos %}
+                <article id="c-v">
+                    <div class="card">
+                        {% if tatoo.imageName %}
+                            <img src="{{ asset('uploads/images/' ~ tatoo.imageName) }}" alt="Tatouage de {{ tatoo.User.name }}">
+                        {% else %}
+                            <img src="{{ asset('images/placeholder.jpg') }}" alt="Image manquante">
+                        {% endif %}
 
-                    <h2>{{ tatoo.tatoo }}</h2>
+                        <h2>{{ tatoo.tatoo }}</h2>
 
-                    {% if tatoo.User %}
-                        <h3>Réalisé par : {{ tatoo.User.name }}</h3>
-                    {% else %}
-                        <h3>Artiste inconnu</h3>
-                    {% endif %}
+                        {% if tatoo.User %}
+                            <h3>Réalisé par : {{ tatoo.User.name }}</h3>
+                        {% else %}
+                            <h3>Artiste inconnu</h3>
+                        {% endif %}
 
-                    <p>Date : {{ tatoo.date ? tatoo.date|date('d/m/Y') : 'Non renseignée' }}</p>
+                        <p>Date : {{ tatoo.date ? tatoo.date|date('m/d/Y') : 'Non renseignée' }}</p>
 
-                    {% if is_granted('ROLE_USER') %}
-                        <a href="{{ path('modify_tatoo', { id: tatoo.id }) }}" class="btn btn-primary">Modifier</a>
+                        {% if is_granted('ROLE_USER') %}
+                            {% if tatoo.user == app.user %}
+                                <a href="{{ path('modify_tatoo', { id: tatoo.id }) }}" class="btn btn-primary">Modifier</a>
 
-                        <form method="post" action="{{ path('delete_tatoo', { id: tatoo.id }) }}" onsubmit="return confirm('Supprimer ce tatouage ?');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('DEL' ~ tatoo.id) }}">
-                            <button class="btn btn-danger">Supprimer</button>
-                        </form>
+                                <form method="post" action="{{ path('delete_tatoo', { id: tatoo.id }) }}" onsubmit="return confirm('Supprimer ce tatouage ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('DEL' ~ tatoo.id) }}">
+                                    <button class="btn btn-danger">Supprimer</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
 
-                    {% endif %}
-
-                    
-                </div>
-            </article>
-        {% else %}
-            <p>Aucun tatouage trouvé.</p>
-        {% endfor %}
+                        
+                    </div>
+                </article>
+            {% else %}
+                <p>Aucun tatouage trouvé.</p>
+            {% endfor %}
+        </div>
     
     </main>
     <!-- Lightbox container  -->

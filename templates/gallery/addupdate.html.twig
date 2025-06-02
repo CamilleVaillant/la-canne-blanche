@@ -10,16 +10,22 @@
 {% endblock %}
 {% block body %}
     <main id="form">
-        <h1>{{ isModification ? 'Modifier le tatouage' : 'Ajouter un nouveau tatouage' }}</h1>
+        <div class="modif">
+            <h1>{{ isModification ? 'Modifier le tatouage' : 'Ajouter un nouveau tatouage' }}</h1>
 
-        {{ form_start(tatooForm) }}
-            {{ form_widget(tatooForm) }}
-            <button class="btn btn-success">
-                {{ isModification ? 'Mettre à jour' : 'Créer' }}
-            </button>
-        {{ form_end(tatooForm) }}
+            {{ form_start(tatooForm) }}
+                {% for field in tatooForm %}
+                    {{ form_row(field) }}
+                {% endfor %}
 
-        <a href="{{ path('app_gallery') }}" class="btn btn-secondary mt-3">Retour à la galerie</a>
+                {# {{ form_widget(tatooForm) }} #}
+                <button class="btn btn-success">
+                    {{ isModification ? 'Mettre à jour' : 'Créer' }}
+                </button>
+            {{ form_end(tatooForm) }}
+
+            <a href="{{ path('app_gallery') }}" class="back">Retour à la galerie</a>
+        </div>
     </main>
     
 {% endblock %}

@@ -10,15 +10,22 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TatooTypeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tatoo')
-            ->add('date')
+            ->add('tatoo', TextType::class, [
+        'label' => 'Nom du tatouage',
+        'attr' => ['class' => 'form-control'],
+    ])
+            ->add('date',  TextType::class, [
+        'attr' => ['class' => 'form-control'],
+    ])
             ->add('User', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'name',
@@ -28,6 +35,7 @@ class TatooTypeForm extends AbstractType
                 'allow_delete' => false,
                 'download_uri' => false,
                 'label' => 'Image du tatouage',
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('imageFile', FileType::class, [
                 'required' => false,

@@ -25,25 +25,41 @@ final class GalleryController extends AbstractController
         $form = $this->createForm(TatooFilterTypeForm::class);
         $form->handleRequest($request);
 
+        $criteria = [];
+        $order = 'DESC';
+
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $tatoos = $tatooRepository->filterTatoos($data);
-        } else {
-            $tatoos = $tatooRepository->findAll();
+            if ($data['user']) {
+                $criteria['user'] = $data['user'];
+            }
+            if ($data['order']) {
+                $order = strtoupper($data['order']);
+            }
         }
+
+        $tatoos = $tatooRepository->findBy($criteria, ['date' => $order]);
 
         return $this->render('gallery/index.html.twig', [
             'form' => $form->createView(),
             'tatoos' => $tatoos,
         ]);
     }
+    
     #[IsGranted('ROLE_USER')]
     #[Route('/tatoo/{id}', name: 'modify_tatoo')]
     #[Route('/tatoo', name: 'add_tatoo')]
     public function change(Tatoo $tatoo = null, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        if ($tatoo && $tatoo->getUser() !== $user) {
+            throw $this->createAccessDeniedException('Vous ne pouvez modifier que vos propres tatouages.');
+        }
+
         if (!$tatoo) {
             $tatoo = new Tatoo();
+            $tatoo->setUser($user);
         }
 
         $form = $this->createForm(TatooTypeForm::class, $tatoo);

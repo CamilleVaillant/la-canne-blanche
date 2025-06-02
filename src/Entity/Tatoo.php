@@ -24,7 +24,8 @@ class Tatoo
     private ?string $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'tatoos')]
-    private ?User $User = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
@@ -66,12 +67,12 @@ class Tatoo
 
     public function getUser(): ?User
     {
-        return $this->User;
+        return $this->user;
     }
 
-    public function setUser(?User $User): static
+    public function setUser(?User $user): static
     {
-        $this->User = $User;
+        $this->user = $user;
 
         return $this;
     }

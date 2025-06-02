@@ -1,36 +1,40 @@
 <?php
 
+// src/Form/TatooFilterTypeForm.php
 namespace App\Form;
 
-use App\Entity\Tatoo;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TatooFilterTypeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tatoo')
-            ->add('date')
-            ->add('imageName')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('User', EntityType::class, [
+            ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Tous les tatoueurs',
+                'label' => 'Tatoueur',
+            ])
+            ->add('order', ChoiceType::class, [
+                'choices' => [
+                    'Du plus récent au plus ancien' => 'desc',
+                    'Du plus ancien au plus récent' => 'asc',
+                ],
+                'required' => false,
+                'placeholder' => 'Ordre chronologique',
+                'label' => 'Tri',
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filtrer',
             ])
         ;
     }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Tatoo::class,
-        ]);
-    }
 }
+

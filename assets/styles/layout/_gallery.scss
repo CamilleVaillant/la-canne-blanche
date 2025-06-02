@@ -3,10 +3,12 @@
 #gallery {
   position: relative;
   padding: 150px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   gap: 2rem;
-  justify-items: center;
+  
 
   &::before {
     content: "";
@@ -31,44 +33,72 @@
     z-index: -2;
   }
 
-  article#c-v .card {
-    background-image: url(/public/local_images/Leather025_4K-PNG_Color.webp);
-    background-position: center;
-    background-size: cover;
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 100%;
-    text-align: center;
-    padding: 1rem;
-    transition: transform 0.3s ease;
+  .g_form{
+    display: flex;
+    .ajout{
+      text-align: center;
+      margin-top: 2rem;
+      padding: 0.75rem;
+      width: auto;
+      height: 1.5rem;
+      background-color: white;
+      border: none;
+      border-radius: 12px;
+      color: black;
+      font-weight: 500;
+      font-size: 1.5rem;
+      transition: background 0.3s ease;
 
-    &:hover {
-      transform: translateY(-5px);
+      &:hover {
+        background-color: #c4c5c7;
+      }
     }
+  }
 
-    img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
+  .g_tatoo{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5rem;
+      article#c-v .card {
+          background-image: url(/public/local_images/Leather025_4K-PNG_Color.webp);
+          background-position: center;
+          background-size: cover;
+          border-radius: 1rem;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          width: 100%;
+          text-align: center;
+          padding: 1rem;
+          transition: transform 0.3s ease;
+          
 
-    h2 {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-    }
+          &:hover {
+            transform: translateY(-5px);
+          }
 
-    h3 {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 0.5rem;
-    }
+          img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+          }
 
-    p {
-      font-size: 0.9rem;
-      color: #444;
+          h2 {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+          }
+
+          h3 {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+          }
+
+          p {
+            font-size: 0.9rem;
+            color: #444;
+          }
     }
   }
 }
@@ -110,6 +140,7 @@
     user-select: none;
   }
 }
+
 
 
 
