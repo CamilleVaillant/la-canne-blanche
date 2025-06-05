@@ -5,11 +5,13 @@
 {% block body %}
     <main id="gallery">
         <div class="g_form">
-            <div id="form">
+            <div id="g_form">
                 {{ form_start(form) }}
                     {{ form_row(form.user) }}
                     {{ form_row(form.order) }}
-                    {{ form_row(form.filter) }}
+                    <div class="form-submit">
+                        {{ form_widget(form.filter) }}
+                    </div>
                 {{ form_end(form) }}
             </div>
 
@@ -40,12 +42,15 @@
 
                         {% if is_granted('ROLE_USER') %}
                             {% if tatoo.user == app.user %}
-                                <a href="{{ path('modify_tatoo', { id: tatoo.id }) }}" class="btn btn-primary">Modifier</a>
+                               <div class="tatoo-actions">
+                                    <a href="{{ path('modify_tatoo', { id: tatoo.id }) }}" class="tatoo-edit-btn">Modifier</a>
 
-                                <form method="post" action="{{ path('delete_tatoo', { id: tatoo.id }) }}" onsubmit="return confirm('Supprimer ce tatouage ?');">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('DEL' ~ tatoo.id) }}">
-                                    <button class="btn btn-danger">Supprimer</button>
-                                </form>
+                                    <form method="post" action="{{ path('delete_tatoo', { id: tatoo.id }) }}" onsubmit="return confirm('Supprimer ce tatouage ?');" style="display:inline;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('DEL' ~ tatoo.id) }}">
+                                        <button class="tatoo-delete-btn">Supprimer</button>
+                                    </form>
+                                </div>
+
                             {% endif %}
                         {% endif %}
 
@@ -56,13 +61,13 @@
                 <p>Aucun tatouage trouvé.</p>
             {% endfor %}
         </div>
-    
+        <!-- Lightbox container  -->
+        <div id="lightbox" class="hidden">
+            <span class="close">&times;</span>
+            <img id="lightbox-img" src="" alt="Agrandissement du tatouage">
+        </div>
     </main>
-    <!-- Lightbox container  -->
-    <div id="lightbox" class="hidden">
-        <span class="close">&times;</span>
-        <img id="lightbox-img" src="" alt="Agrandissement du tatouage">
-    </div>
+    
    
 
     
