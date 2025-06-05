@@ -3,32 +3,33 @@
 {% block title %}L'équipe{% endblock %}
 
 {% block body %}
-    <main id="team">
+<main id="team">
+    {% for tatoueur in tatoueurs %}
+        <article id="c-v">
+            <div class="card" data-bio="{{ tatoueur.bio|striptags|e('html_attr') }}">
+                <img src="{{ asset('uploads/images/' ~ tatoueur.imageName) }}" alt="Image de {{ tatoueur.name }}">
+                <h2>{{ tatoueur.name }}</h2>
+                <h3>
+                    Style : 
+                    {% for type in tatoueur.types %}
+                        {{ type.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </h3>
+            </div>
+        </article>
+    {% endfor %}
 
-        
+</main>
 
-        {% for tatoueur in tatoueurs %}
-            <article id="c-v">
-                <div class="card">
-                    <img src="{{ asset('uploads/images/' ~ tatoueur.imageName) }}" alt="Image de {{ tatoueur.name }}">
-                    <h2>{{ tatoueur.name }}</h2>
-                    <h3>
-                        style: 
-                        {% for type in tatoueur.types %}
-                            {{ type.name }}{% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                    </h3>
+<div id="lightbox" class="lightbox">
+  <div class="lightbox-content">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="" />
+    <h2 id="lightbox-name"></h2>
+    <p id="lightbox-bio"></p>
+  </div>
+</div>
 
-                    <button type="button" class="toggle-bio-btn" data-target="bio-{{ tatoueur.id }}">
-                        bio
-                    </button>
 
-                    <p id="bio-{{ tatoueur.id }}" class="hidden">
-                        {{ tatoueur.bio }}
-                    </p>
 
-                </div>
-            </article>
-        {% endfor %}
-    </main>
 {% endblock %}

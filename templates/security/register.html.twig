@@ -3,13 +3,15 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <main id="register">
+            {{form_start(userForm)}}
+                {{form_widget(userForm)}}
+                <button>ajout</button>
+            {{form_end(userForm)}}
+        </main>
+    {% endif %}
 
-	<main id="register">
-        {{form_start(userForm)}}
-            {{form_widget(userForm)}}
-            <button>ajout</button>
-        {{form_end(userForm)}}
-
-	</main>
+        
 
 {% endblock %}

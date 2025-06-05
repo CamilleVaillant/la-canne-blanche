@@ -3,20 +3,22 @@
 {% block title %}Nouveau mot de passe{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Définir un nouveau mot de passe</h1>
+<div id="form">
+    <form class="modif">
+        <h1>Définir un nouveau mot de passe</h1>
 
-    {% for message in app.flashes('success') %}
-        <div class="flash-success">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('danger') %}
-        <div class="flash-error">{{ message }}</div>
-    {% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="flash-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="flash-error">{{ message }}</div>
+        {% endfor %}
 
-    {{ form_start(resetForm, {'attr': {'class': 'reset-form'}}) }}
-        {{ form_row(resetForm.plainPassword.first) }}
-        {{ form_row(resetForm.plainPassword.second) }}
-        <button type="submit" class="btn">Mettre à jour le mot de passe</button>
-    {{ form_end(resetForm) }}
+        {{ form_start(resetForm, {'attr': {'class': 'reset-form'}}) }}
+            {{ form_row(resetForm.plainPassword.first) }}
+            {{ form_row(resetForm.plainPassword.second) }}
+            <button type="submit" class="btn">Mettre à jour le mot de passe</button>
+        {{ form_end(resetForm) }}
+    </form>
 </div>
 {% endblock %}

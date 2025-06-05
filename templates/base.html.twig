@@ -110,17 +110,9 @@
 
         </script>
 
-        <script>
-            document.querySelectorAll('.toggle-bio-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.getAttribute('data-target');
-                    const bio = document.getElementById(targetId);
-                    if (bio) {
-                        bio.classList.toggle('hidden');
-                    }
-                });
-            });
-        </script>
+
+
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const lightbox = document.getElementById('lightbox');
@@ -144,6 +136,42 @@
                     }
                 });
             });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                const lightboxName = document.getElementById('lightbox-name');
+                const lightboxBio = document.getElementById('lightbox-bio');
+                const closeBtn = document.querySelector('#lightbox .close');
+
+                // Sélectionne toutes les cartes tatoueur dans #team
+                document.querySelectorAll('#team .card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        // Récupère les données depuis la card
+                        const img = card.querySelector('img');
+                        const name = card.querySelector('h2').textContent;
+                        const bio = card.dataset.bio; // On mettra la bio en data-bio dans Twig (voir étape 3)
+
+                        lightboxImg.src = img.src;
+                        lightboxImg.alt = `Image de ${name}`;
+                        lightboxName.textContent = name;
+                        lightboxBio.textContent = bio;
+
+                        lightbox.classList.add('active');
+                    });
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                });
+
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        lightbox.classList.remove('active');
+                    }
+                });
+            });
+
 
         </script>
 
