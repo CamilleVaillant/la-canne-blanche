@@ -2,6 +2,45 @@
 
 #salon{
     position: relative;
+    #intro-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+    }
+
+    .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7); /* Fond semi-transparent */
+    }
+
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: black;
+        padding: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        max-width: 90vw;
+        max-height: 90vh;
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+
+    #intro-video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+
     .banner{
         padding-top: 100px;
         .titre1{
@@ -57,7 +96,7 @@
 /* Bandeau image fixe */
     .bandeau-fixe {
         position: relative;
-        height: 100vh; /* hauteur du bandeau */
+        height: 100vh;
         background-image: url(/public/local_images/salon-tableau.webp);
         background-attachment: fixed;
         background-position: center;
@@ -78,43 +117,48 @@
         position: relative;
         overflow: hidden;
         width: 100%;
-        height: 300px; /* hauteur fixe du bandeau */
+        height: 300px;
         box-sizing: border-box;
-    }
-    .cadre-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 10;
-    pointer-events: none;
-    }
-    // .carrousel::after {
-    //     content: "";
-    //     position: absolute;
-    //     height: 100%;
-    //     width: 100%;
-    //     bottom: 0;
-    //     left: 0;
-    //     background-image: url(/public/local_images/cadre-or-v2.png);
-    //     background-size: cover;
-    //     background-repeat: no-repeat;
-    //     background-position: center;
-    //     z-index: 10;
-    //     pointer-events: none;
-    // }
+        
+        
+        // .ligne-bottom {
+        //     position: absolute;  
+        //     left: 0;
+        //     bottom: 0;
+        //     width: 100%;
+        //     height: auto;
+        //     object-fit: cover;
+        //     z-index: 10;  
+        //     pointer-events: none; 
+        // }
 
+        // .ligne-top {
+        //     top: 0;
+        //     position: absolute;  
+        //     left: 0;
+        //     width: 100%;
+        //     height: auto;
+        //     object-fit: cover;
+        //     z-index: 10;  
+        //     pointer-events: none;  
+        // }
+
+     
+    }
     /* TRACK = contenant des images */
     .carrousel-track {
         display: flex;
         align-items: center;
         gap: 1rem;
         animation: defilement 20s linear infinite;
-        z-index: 1;
+        z-index: 0;
         position: relative;
         height: 100%;
     }
+    
+
+    
+
 
     /* IMAGES dans le carrousel */
     .carrousel-track img {
@@ -132,7 +176,7 @@
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-2528px); /* 8 images x (300px + 1rem) */
+        transform: translateX(-2528px);
     }
     }
 
@@ -161,4 +205,46 @@
     left: 0;
     background-color: black;
     z-index: -2;
+}
+@media (max-width: 1200px) {
+    #salon{
+        .salon{
+            margin-top: 100px;
+            flex-wrap: wrap;
+            padding: 0;
+            .left{
+                padding: 0;
+            }
+            .right{
+                margin: auto;
+                padding: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #salon{
+        .banner{
+            padding-top: 50px;
+            .titre1{
+                object-fit: cover;
+                width: 100%;
+                height: auto;
+                display: block;
+                // margin: 0 auto;
+                border-radius: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 402px) {
+    #salon{
+        .salon{
+            .right{
+               display: none;
+            }
+        }
+    }
 }

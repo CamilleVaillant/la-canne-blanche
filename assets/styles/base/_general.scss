@@ -9,32 +9,95 @@
 
 
 
-nav{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 1rem 0;
-    transition: transform 0.3s ease-in-out;
-    background-color: #0000007e;
-    
-    &.nav--hidden {
-        transform: translateY(-100%);
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: transform 0.3s ease-in-out;
+  background-color: #0000007e;
+
+  &.nav--hidden {
+    transform: translateY(-100%);
+  }
+
+  .menu-toggle {
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .bar {
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 10px;
+      transition: all 0.3s ease;
     }
-    ul{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        justify-content: space-evenly;
-        a{
-        font-family: 'zelda';
-        text-transform: uppercase;
-        font-size: 2rem;
-        color: white;
-        }
+  }
+
+  .nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+    a {
+      font-family: 'zelda';
+      text-transform: uppercase;
+      font-size: 2rem;
+      color: white;
+      text-decoration: none;
     }
-    
+  }
+
+  // Responsive mobile
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #000;
+      flex-direction: column;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+
+      li {
+        padding: 1rem 0;
+        text-align: center;
+      }
+    }
+
+    .nav-list.open {
+      max-height: 300px;
+    }
+
+    .menu-toggle.active .bar:nth-child(1) {
+      transform: translate(0, 10px) rotate(45deg);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+      transform: translate(0, -10px) rotate(-45deg);
+    }
+  }
 }
+
+
 
 footer{
     // position: relative;
@@ -49,6 +112,20 @@ footer{
         a{
             color: white;
         }
+    }
+}
+
+@media (max-width: 940px){
+    footer{
+        flex-wrap: wrap;
+    }
+}
+@media (max-width: 720px) {
+    footer{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        
     }
 }
 p{

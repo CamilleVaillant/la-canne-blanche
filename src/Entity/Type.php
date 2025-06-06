@@ -6,6 +6,7 @@ use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User; // Assure-toi que l'import est présent
 
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 class Type
@@ -19,14 +20,14 @@ class Type
     private ?string $name = null;
 
     /**
-     * @var Collection<int, user>
+     * @var Collection<int, User>
      */
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'types')]
-    private Collection $user;
+    private Collection $users;
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,32 +48,31 @@ class Type
     }
 
     /**
-     * @return Collection<int, user>
+     * @return Collection<int, User>
      */
-    public function getUser(): Collection
+    public function getUsers(): Collection
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function addUser(user $user): static
+    public function addUser(User $user): static
     {
-        if (!$this->user->contains($user)) {
-            $this->user->add($user);
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
         }
 
         return $this;
     }
 
-    public function removeUser(user $user): static
+    public function removeUser(User $user): static
     {
-        $this->user->removeElement($user);
+        $this->users->removeElement($user);
 
         return $this;
     }
 
     public function __toString(): string
-{
-    return $this->name ?? 'Type';
-}
-
+    {
+        return $this->name ?? 'Type';
+    }
 }

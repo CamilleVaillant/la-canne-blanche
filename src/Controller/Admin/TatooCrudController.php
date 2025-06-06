@@ -31,7 +31,7 @@ class TatooCrudController extends AbstractCrudController
 
             /* ---------- ASSOCIATION TATOUER / USER ---------- */
             
-            AssociationField::new('User', 'Tatoueur')
+            AssociationField::new('user', 'Tatoueur')
                 ->setRequired(true)                    
                 ->setFormTypeOptions([
                     'choice_label' => 'name',          

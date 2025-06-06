@@ -45,7 +45,7 @@ final class ResetPasswordController extends AbstractController
                 );
 
                 $emailMessage = (new Email())
-                    ->from('noreply@yourdomain.com')
+                    ->from('Lacannebflash@gmail.com')
                     ->to($user->getEmail())
                     ->subject('Réinitialisation de votre mot de passe')
                     ->text("Voici votre lien de réinitialisation : $resetLink");

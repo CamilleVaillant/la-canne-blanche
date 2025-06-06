@@ -4,6 +4,17 @@
 
 {% block body %}
     <main id="salon">
+            <div id="intro-modal" style="display: none;">
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <video id="intro-video" autoplay muted playsinline>
+                        <source src="{{ asset('videos/canne_blanche_logo_sans_grungy.mp4') }}" type="video/mp4">
+                        Votre navigateur ne supporte pas la vidéo HTML5.
+                    </video>
+                </div>
+            </div>
+  
+
         <div class="banner">
             {# <img class="banner1" src="{{ asset('local_images/salon-banner.webp') }}" alt="photos du salon"> #}
             <img class="titre1" src="{{ asset('local_images/accueil-banner.webp') }}" alt="logo du salon blanc">
@@ -28,6 +39,9 @@ La Canne Blanche, c’est un atelier vivant, organique, où l’art se mêle à 
         <section class="bandeau-fixe"></section>
 
         <div class="carrousel">
+           
+            {# <img src="/local_images/carroussel-top.png" class="ligne-top" alt="" /> #}
+               
             <div class="carrousel-track">
                 <img src="{{ asset('local_images/barber-dts.webp')}}" alt="" />
                 <img src="{{ asset('local_images/pro-team.webp')}}" alt="" />
@@ -46,18 +60,35 @@ La Canne Blanche, c’est un atelier vivant, organique, où l’art se mêle à 
                 <img src="{{ asset('local_images/tss.webp')}}" alt="" />
                 <img src="{{ asset('local_images/otzy.webp')}}" alt="" />
             </div>
-            <img src="/local_images/cadre-or-v2.png" class="cadre-img" alt="" />
+            
+            {# <img src="/local_images/carroussel-bottom.png" class="ligne-bottom" alt="" /> #}
+            
         </div>
 
-
+    
     </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('intro-modal');
+            const video = document.getElementById('intro-video');
 
+            if (!localStorage.getItem('introVideoSeen')) {
+                modal.style.display = 'block';
+                video.play();
 
+                video.addEventListener('ended', () => {
+                    modal.style.display = 'none';
+                    localStorage.setItem('introVideoSeen', 'true');
+                });
+            }
+        });
+    </script>
 
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const carousel = document.querySelector('.carousel');
+            const carousel = document.querySelector('.carrousel');
             const images = carousel.querySelectorAll('img');
 
             // Cloner les images pour créer un effet de boucle fluide

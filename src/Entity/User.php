@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Illustration>
      */
-    #[ORM\OneToMany(targetEntity: Illustration::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Illustration::class, mappedBy: 'User')]
     private Collection $illustrations;
 
    
@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Type>
      */
-    #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'user')]
+    #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'User')]
     private Collection $types;
 
     #[ORM\Column(length: 255)]
@@ -304,6 +304,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
    
     private ?string $plainPassword = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $reseaux = null;
+
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
@@ -342,6 +345,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isRestTokenValid(): bool
     {
         return $this->resetTokenExpiresAt && $this->resetTokenExpiresAt > new \DateTime();
+    }
+
+    public function getReseaux(): ?string
+    {
+        return $this->reseaux;
+    }
+
+    public function setReseaux(?string $reseaux): self
+    {
+        $this->reseaux = $reseaux;
+
+        return $this;
     }
 
    

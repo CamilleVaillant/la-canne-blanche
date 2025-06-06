@@ -15,6 +15,16 @@
                         {{ type.name }}{% if not loop.last %}, {% endif %}
                     {% endfor %}
                 </h3>
+                <h3>
+                    {% if tatoueur.reseaux %}
+                        {% set url = tatoueur.reseaux starts with 'http' ? tatoueur.reseaux : 'https://instagram.com/' ~ tatoueur.reseaux %}
+                        <a href="{{ url }}" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-instagram fa-2x"></i>
+                        </a>
+                    {% else %}
+                        Aucun réseau social
+                    {% endif %}
+                </h3>
             </div>
         </article>
     {% endfor %}

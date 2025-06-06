@@ -6,7 +6,12 @@
   align-items: center;
   flex-wrap: wrap;
   padding-top: 100px;
-  padding-bottom: 100px;
+  // padding-bottom: 100px;
+  background-image: url(/public/local_images/black-leather.png);
+  background-position: center;
+  background-size: content;
+  background-repeat: repeat;
+  background-color: #000;
 
   #c-v {
     background-image: url(/public/local_images/Leather025_4K-PNG_Color.webp);
@@ -47,32 +52,44 @@
         font-weight: normal;
         font-size: 0.85rem;
         color: #555;
+        
+      }
+      h3 {
+        a {
+          i.fa-instagram {
+            color: #000000; // couleur rose Instagram
+
+            &:hover {
+              color: #eb3b9e; // couleur au survol
+            }
+          }
+        }
       }
 
     }
   }
 }
-#team::before{
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-image: url(/public/local_images/black-leather.png);
-    z-index: -1;
-    opacity: 0.4;
-}
-#team::after{
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: black;
-    z-index: -2;
-}
+// #team::before{
+//     content: "";
+//     position: absolute;
+//     height: 100%;
+//     width: 100%;
+//     top: 0;
+//     left: 0;
+//     background-image: url(/public/local_images/black-leather.png);
+//     z-index: -1;
+//     opacity: 0.4;
+// }
+// #team::after{
+//     content: "";
+//     position: absolute;
+//     height: 100%;
+//     width: 100%;
+//     top: 0;
+//     left: 0;
+//     background-color: black;
+//     z-index: -2;
+// }
 
 .lightbox {
   position: fixed;

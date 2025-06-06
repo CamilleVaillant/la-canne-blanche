@@ -31,9 +31,9 @@
         <nav>
              <!-- Menu burger -->
             <div class="menu-toggle" id="menu-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
             </div>
 
             {# Menu de navigation #}
@@ -56,8 +56,18 @@
         <footer>
             <ul>
                 <li><h1>la canne blanche</h1></li>
-                <li><a href="">56 Cours de l'Agonne Bordeaux</a></li>
-                <li><a href="">la Canne Blanche</a></li>
+               <li>
+                    <a href="https://www.google.com/maps/place/56+Cr+de+l'Argonne,+33000+Bordeaux/@44.8286514,-0.5765786,1176m/data=!3m2!1e3!4b1!4m6!3m5!1s0xd5527b839e3a46f:0x5f9c9ede58671593!8m2!3d44.8286476!4d-0.5740037!16s%2Fg%2F11wwqytm34?hl=fr&entry=ttu&g_ep=EgoyMDI1MDYwMy4wIKXMDSoASAFQAw%3D%3D" 
+                        target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-location-dot"></i> 56 Cours de l'Agonne Bordeaux
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/lacanneblanche/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-instagram"></i> la Canne Blanche
+                    </a>
+                </li>
+
             </ul>
             <ul>
                 <li>
@@ -91,24 +101,34 @@
 
 
         <script>
-        let lastScrollTop = 0;
+            // Cacher la navbar en scroll vers le bas
+            let lastScrollTop = 0;
             const nav = document.querySelector('nav');
 
             window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-            if (currentScroll > lastScrollTop) {
-                // On scroll vers le bas
+                if (currentScroll > lastScrollTop) {
                 nav.classList.add('nav--hidden');
-            } else {
-                // On scroll vers le haut
+                } else {
                 nav.classList.remove('nav--hidden');
-            }
+                }
 
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // pour iOS
+                lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
             });
 
+            // Menu burger
+            document.addEventListener('DOMContentLoaded', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                const navList = document.getElementById('nav-list');
+
+                menuToggle.addEventListener('click', () => {
+                navList.classList.toggle('open');
+                menuToggle.classList.toggle('active');
+                });
+            });
         </script>
+
 
 
 
