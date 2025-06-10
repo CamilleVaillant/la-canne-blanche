@@ -4,7 +4,7 @@
 
 {% block body %}
     <main id="salon">
-            <div id="intro-modal" style="display: none;">
+            {# <div id="intro-modal" style="display: none;">
                 <div class="modal-overlay"></div>
                 <div class="modal-content">
                     <video id="intro-video" autoplay muted playsinline>
@@ -12,7 +12,7 @@
                         Votre navigateur ne supporte pas la vidéo HTML5.
                     </video>
                 </div>
-            </div>
+            </div> #}
   
 
         <div class="banner">
@@ -68,22 +68,22 @@ La Canne Blanche, c’est un atelier vivant, organique, où l’art se mêle à 
     
     </main>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('intro-modal');
-            const video = document.getElementById('intro-video');
+    {# // <script>
+    //     document.addEventListener('DOMContentLoaded', () => {
+    //         const modal = document.getElementById('intro-modal');
+    //         const video = document.getElementById('intro-video');
 
-            if (!localStorage.getItem('introVideoSeen')) {
-                modal.style.display = 'block';
-                video.play();
+    //         if (!localStorage.getItem('introVideoSeen')) {
+    //             modal.style.display = 'block';
+    //             video.play();
 
                 video.addEventListener('ended', () => {
-                    modal.style.display = 'none';
-                    localStorage.setItem('introVideoSeen', 'true');
-                });
-            }
-        });
-    </script>
+    //                 modal.style.display = 'none';
+    //                 localStorage.setItem('introVideoSeen', 'true');
+    //             });
+    //         }
+    //     });
+    // </script> #}
 
 
     <script>

@@ -43,7 +43,8 @@
             
                 <li><a class="{% if app.request.attributes.get('_route') == 'app_home' %} active {% endif %}" href="{{ path('app_home') }}">le salon</a></li>
                 <li><a class="{% if app.request.attributes.get('_route') == 'app_team' %} active {% endif %}" href="{{ path('app_team') }}">l'equipe</a></li>
-                <li><a class="{% if app.request.attributes.get('_route') == 'app_gallery' %} active {% endif %}" href="{{ path('app_gallery') }}">gallerie</a></li>
+                <li><a class="{% if app.request.attributes.get('_route') == 'app_gallery' %} active {% endif %}" href="{{ path('app_gallery') }}">les tatouages</a></li>
+                {# <li><a class="{% if app.request.attributes.get('_route') == 'app_illustration' %} active {% endif %}" href="{{ path('app_illustration') }}">les illustrations</a></li> #}
 
                
                
@@ -94,8 +95,8 @@
             </ul>
             <ul>
                 <li><p>© 2025 La Canne Blanche. Tous droits réservés.</p></li>
-                <li><a href="#">🔐 Politique de confidentialité</a></li>
-                <li><a href="#">📜 Mentions légales</a></li>
+                {# <li><a href="#">🔐 Politique de confidentialité</a></li>
+                <li><a href="#">📜 Mentions légales</a></li> #}
             </ul>
         </footer>
 
