@@ -4,11 +4,13 @@
 
 {% block body %}
     {# {% if is_granted('ROLE_ADMIN') %} #}
-        <main id="register">
-            {{form_start(userForm)}}
-                {{form_widget(userForm)}}
-                <button>ajout</button>
-            {{form_end(userForm)}}
+        <main>
+            <div id="form">
+                {{form_start(userForm)}}
+                    {{form_widget(userForm)}}
+                    <button>ajout</button>
+                {{form_end(userForm)}}
+            </div>
         </main>
     {# {% endif %} #}
 
