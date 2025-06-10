@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
     }
 
     // #[IsGranted('ROLE_ADMIN')]
-    #[Route(path: '/inscription', name: 'app_register')]
+    #[Route(path: '/register', name: 'app_register')]
     public function register(Request $request,UserPasswordHasherInterface $passwordEncoder,EntityManagerInterface $entityManager,AuthenticationUtils $authenticationUtils): Response
     {
         // Vérification si l'objet existe via l'injection de dependance
